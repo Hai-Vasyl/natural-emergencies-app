@@ -2,14 +2,15 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  Entity, ManyToMany,
+  Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 import { User } from './user.entity';
-import {Region} from "./region.entity";
+import { Region } from './region.entity';
 
 @Entity({ name: 'locations' })
 export class Location extends BaseEntity {
@@ -22,6 +23,12 @@ export class Location extends BaseEntity {
   @Column({ type: 'text' })
   description: string;
 
+  @Column()
+  latitude: string;
+
+  @Column()
+  longitude: string;
+
   @CreateDateColumn()
   created: Date;
 
@@ -31,6 +38,6 @@ export class Location extends BaseEntity {
   @ManyToOne(() => User, (user) => user.locations)
   user: User;
 
-  @ManyToMany(() => Region, region => region.locations)
+  @ManyToMany(() => Region, (region) => region.locations)
   regions: Region[];
 }
